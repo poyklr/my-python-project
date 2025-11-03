@@ -71,7 +71,6 @@ def assign_v5b(row):
     desc = " ".join(str(row.get(c, "")).lower() for c in ["Item", "Description", "Subcategory"])
     vsubsub = str(row.get("New Sub-Sub-Category", "")).strip()
 
-    # xxx
     # ELECTRICAL
     if orig_new_cat == "Electrical" and orig_new_sub == "Other Spare Parts":
         if any(k in desc for k in electrical_consumable_keys):
@@ -199,8 +198,8 @@ def reclassify_tab_v5b(input_path: Path, sheet_name: str, output_path: Path):
 
     with pd.ExcelWriter(output_path, engine="xlsxwriter") as writer:
         df_v5b.to_excel(writer, sheet_name=sheet_name, index=False)
-        summary1.to_excel(writer, sheet_name="v5b_Summary1", index=False)
-        summary2.to_excel(writer, sheet_name="v5b_Summary2", index=False)
+        summary1.to_excel(writer, sheet_name=f"v5b_Summary1_{sheet_name}", index=False)
+        summary2.to_excel(writer, sheet_name=f"v5b_Summary2_{sheet_name}", index=False)
 
     return output_path
 
